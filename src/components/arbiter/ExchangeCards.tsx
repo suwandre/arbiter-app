@@ -206,8 +206,10 @@ export function ExchangeCards({ result }: Props) {
       })}
 
       <div className="pt-4 border-t border-white/[0.05]">
-        <p className="text-[11px] uppercase tracking-wider text-white/20 font-medium mb-3">
+        <p className="text-[11px] uppercase tracking-widest text-white/10 font-bold mb-3 flex items-center gap-2">
+          <span className="flex-1 h-px bg-white/[0.04]" />
           Deep Dive
+          <span className="flex-1 h-px bg-white/[0.04]" />
         </p>
         <DeepDiveTabs result={result} />
       </div>

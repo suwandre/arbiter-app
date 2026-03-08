@@ -72,51 +72,53 @@ function FundingTab({
               </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3">
+            <div className="grid grid-cols-3 gap-x-6 gap-y-3">
               <FundingStat
                 label="Current Rate"
                 value={`${(rank.funding_rate * 100).toFixed(5)}%`}
                 highlight={rank.funding_rate < 0 ? "positive" : "negative"}
               />
               {extended && (
-                <>
-                  <FundingStat
-                    label="30d Avg Rate"
-                    value={`${(extended.avg_rate_30d * 100).toFixed(5)}%`}
-                    highlight={extended.avg_rate_30d < 0 ? "positive" : "negative"}
-                  />
-                </>
+                <FundingStat
+                  label="30d Avg Rate"
+                  value={`${(extended.avg_rate_30d * 100).toFixed(5)}%`}
+                  highlight={
+                    extended.avg_rate_30d < 0 ? "positive" : "negative"
+                  }
+                />
               )}
               {cost && (
-                <>
-                  <FundingStat
-                    label="Projected Cost"
-                    value={`${cost.projected_cost_pct.toFixed(4)}%`}
-                    highlight={cost.projected_cost_pct <= 0 ? "positive" : "negative"}
-                  />
-                  <FundingStat
-                    label="Net PnL"
-                    value={`${cost.net_pnl_pct >= 0 ? "+" : ""}${cost.net_pnl_pct.toFixed(4)}%`}
-                    highlight={cost.net_pnl_pct >= 0 ? "positive" : "negative"}
-                  />
-                  <FundingStat
-                    label="Status"
-                    value={cost.paying ? "Paying" : "Receiving"}
-                    highlight={cost.paying ? "negative" : "positive"}
-                  />
-                </>
+                <FundingStat
+                  label="Status"
+                  value={cost.paying ? "Paying" : "Receiving"}
+                  highlight={cost.paying ? "negative" : "positive"}
+                />
+              )}
+              {cost && (
+                <FundingStat
+                  label="Projected Cost"
+                  value={`${cost.projected_cost_pct.toFixed(4)}%`}
+                  highlight={
+                    cost.projected_cost_pct <= 0 ? "positive" : "negative"
+                  }
+                />
+              )}
+              {cost && (
+                <FundingStat
+                  label="Net PnL"
+                  value={`${
+                    cost.net_pnl_pct >= 0 ? "+" : ""
+                  }${cost.net_pnl_pct.toFixed(4)}%`}
+                  highlight={cost.net_pnl_pct >= 0 ? "positive" : "negative"}
+                />
               )}
               {extended && (
-                <>
-                  <FundingStat
-                    label="Cost Range Low"
-                    value={`${extended.projected_cost_low_pct?.toFixed(4) ?? "—"}%`}
-                  />
-                  <FundingStat
-                    label="Cost Range High"
-                    value={`${extended.projected_cost_high_pct?.toFixed(4) ?? "—"}%`}
-                  />
-                </>
+                <FundingStat
+                  label="Cost Range"
+                  value={`${
+                    extended.projected_cost_low_pct?.toFixed(4) ?? "—"
+                  }% → ${extended.projected_cost_high_pct?.toFixed(4) ?? "—"}%`}
+                />
               )}
             </div>
           </div>
@@ -164,7 +166,9 @@ function AnomaliesTab({ result }: { result: RecommendResponse }) {
     return (
       <div className="flex flex-col items-center justify-center py-12 space-y-2">
         <span className="text-2xl">✅</span>
-        <p className="text-sm text-white/40">No anomalies detected across all exchanges</p>
+        <p className="text-sm text-white/40">
+          No anomalies detected across all exchanges
+        </p>
       </div>
     );
   }
@@ -197,7 +201,8 @@ function AnomaliesTab({ result }: { result: RecommendResponse }) {
                 </span>
               ) : (
                 <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
-                  {anomaly.signals?.length ?? 0} signal{(anomaly.signals?.length ?? 0) !== 1 ? "s" : ""}
+                  {anomaly.signals?.length ?? 0} signal
+                  {(anomaly.signals?.length ?? 0) !== 1 ? "s" : ""}
                 </span>
               )}
             </div>
@@ -223,7 +228,9 @@ function AnomaliesTab({ result }: { result: RecommendResponse }) {
             )}
 
             {anomaly.clean && (
-              <p className="text-xs text-white/30">No signals detected — data looks healthy</p>
+              <p className="text-xs text-white/30">
+                No signals detected — data looks healthy
+              </p>
             )}
           </div>
         );
@@ -256,13 +263,20 @@ function WeightsTab({ result }: { result: RecommendResponse }) {
     <div className="space-y-4">
       {/* Context note */}
       <div className="rounded-xl border border-violet-500/20 bg-violet-500/5 px-4 py-3 text-xs text-white/50 leading-relaxed">
-        <span className="text-violet-400 font-semibold">How scoring works: </span>
-        These weights were used to rank exchanges for your query. Higher weight = more influence on the final score.
+        <span className="text-violet-400 font-semibold">
+          How scoring works:{" "}
+        </span>
+        These weights were used to rank exchanges for your query. Higher weight
+        = more influence on the final score.
         {topRank && (
           <span className="text-white/40">
             {" "}
-            <span className="text-violet-300">{EXCHANGE_LABELS[topRank.exchange]}</span> ranked #1 using{" "}
-            <span className="text-violet-300">{topRank.weights_source}</span> weighting.
+            <span className="text-violet-300">
+              {EXCHANGE_LABELS[topRank.exchange]}
+            </span>{" "}
+            ranked #1 using{" "}
+            <span className="text-violet-300">{topRank.weights_source}</span>{" "}
+            weighting.
           </span>
         )}
       </div>
@@ -300,12 +314,17 @@ function WeightsTab({ result }: { result: RecommendResponse }) {
           Final Scores
         </p>
         {rankings.map((rank, i) => (
-          <div key={rank.exchange} className="flex items-center justify-between">
+          <div
+            key={rank.exchange}
+            className="flex items-center justify-between"
+          >
             <div className="flex items-center gap-2">
               <span className="text-[11px] text-white/20 w-4">{i + 1}</span>
               <div
                 className="w-1.5 h-1.5 rounded-full"
-                style={{ backgroundColor: EXCHANGE_COLORS[rank.exchange] ?? "#7c3aed" }}
+                style={{
+                  backgroundColor: EXCHANGE_COLORS[rank.exchange] ?? "#7c3aed",
+                }}
               />
               <span className="text-xs text-white/60">
                 {EXCHANGE_LABELS[rank.exchange] ?? rank.exchange}
@@ -324,7 +343,9 @@ function WeightsTab({ result }: { result: RecommendResponse }) {
 // ─── Main Component ──────────────────────────────────────────────
 export function DeepDiveTabs({ result }: Props) {
   const [activeTab, setActiveTab] = useState<Tab>("Funding");
-  const [fundingData, setFundingData] = useState<FundingRatesResponse | null>(null);
+  const [fundingData, setFundingData] = useState<FundingRatesResponse | null>(
+    null
+  );
 
   const fetchFunding = useCallback(async () => {
     try {
