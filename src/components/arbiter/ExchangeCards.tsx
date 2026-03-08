@@ -205,11 +205,11 @@ export function ExchangeCards({ result }: Props) {
         );
       })}
 
-      <div className="pt-4 border-t border-white/[0.05]">
-        <p className="text-[11px] uppercase tracking-widest text-white/10 font-bold mb-3 flex items-center gap-2">
-          <span className="flex-1 h-px bg-white/[0.04]" />
+      <div className="mt-8 pt-6 border-t border-white/[0.08]">
+        <p className="text-[11px] uppercase tracking-widest text-white/25 font-bold mb-4 flex items-center gap-3">
+          <span className="flex-1 h-px bg-white/[0.06]" />
           Deep Dive
-          <span className="flex-1 h-px bg-white/[0.04]" />
+          <span className="flex-1 h-px bg-white/[0.06]" />
         </p>
         <DeepDiveTabs result={result} />
       </div>
