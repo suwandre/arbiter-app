@@ -1,6 +1,6 @@
 import type { RecommendResponse } from "@/types/arbiter";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8080";
 
 export async function getRecommendation(
   pair: string,
