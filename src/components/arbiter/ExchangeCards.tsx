@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { RecommendResponse } from "@/types/arbiter";
+import { DeepDiveTabs } from "./DeepDiveTabs";
 
 interface Props {
   result: RecommendResponse;
@@ -203,6 +204,13 @@ export function ExchangeCards({ result }: Props) {
           </motion.div>
         );
       })}
+
+      <div className="pt-4 border-t border-white/[0.05]">
+        <p className="text-[11px] uppercase tracking-wider text-white/20 font-medium mb-3">
+          Deep Dive
+        </p>
+        <DeepDiveTabs result={result} />
+      </div>
     </motion.div>
   );
 }
