@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -15,8 +15,14 @@ import { getRecommendation } from "@/lib/api";
 import { ExchangeCards } from "./ExchangeCards";
 
 const PAIRS = [
-  "BTCUSDT", "ETHUSDT", "SOLUSDT", "BNBUSDT",
-  "TRXUSDT", "XRPUSDT", "DOGEUSDT", "ADAUSDT"
+  "BTCUSDT",
+  "ETHUSDT",
+  "SOLUSDT",
+  "BNBUSDT",
+  "TRXUSDT",
+  "XRPUSDT",
+  "DOGEUSDT",
+  "ADAUSDT",
 ];
 
 export function ArbiterInputForm() {
@@ -32,7 +38,6 @@ export function ArbiterInputForm() {
     e.preventDefault();
     setError(null);
     setLoading(true);
-
     try {
       const data = await getRecommendation(
         pair,
@@ -41,104 +46,120 @@ export function ArbiterInputForm() {
         parseFloat(hours)
       );
       setResult(data);
-    } catch (err) {
-      setError("Failed to fetch recommendation. Is the backend running?");
+    } catch {
+      setError("Failed to fetch. Is the backend running on :8080?");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-8">
+    <div className="w-full max-w-2xl mx-auto space-y-6">
       <form onSubmit={handleSubmit} className="space-y-4">
-
         {/* Pair */}
-        <div className="space-y-1">
-          <label className="text-sm text-muted-foreground">Pair</label>
+        <div className="space-y-1.5">
+          <label className="text-[11px] uppercase tracking-widest text-white/30 font-medium">
+            Pair
+          </label>
           <Select value={pair} onValueChange={setPair}>
-            <SelectTrigger className="w-full bg-card border-border">
+            <SelectTrigger className="w-full bg-white/[0.03] border-white/[0.08] text-white/80 hover:border-white/20 transition-colors">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-card border-border">
+            <SelectContent className="bg-[#0f0f17] border-white/[0.08]">
               {PAIRS.map((p) => (
-                <SelectItem key={p} value={p}>{p}</SelectItem>
+                <SelectItem
+                  key={p}
+                  value={p}
+                  className="text-white/70 hover:text-white focus:text-white"
+                >
+                  {p}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
 
         {/* Side toggle */}
-        <div className="space-y-1">
-          <label className="text-sm text-muted-foreground">Side</label>
-          <div className="flex gap-2">
+        <div className="space-y-1.5">
+          <label className="text-[11px] uppercase tracking-widest text-white/30 font-medium">
+            Side
+          </label>
+          <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={() => setSide("long")}
-              className={`flex-1 py-2 rounded-md text-sm font-medium transition-colors border ${
+              className={`py-2.5 rounded-xl text-sm font-semibold transition-all border ${
                 side === "long"
-                  ? "bg-[#10b981] border-[#10b981] text-white"
-                  : "bg-card border-border text-muted-foreground hover:text-foreground"
+                  ? "bg-emerald-500/15 border-emerald-500/40 text-emerald-400"
+                  : "bg-white/[0.02] border-white/[0.06] text-white/30 hover:text-white/50"
               }`}
             >
-              Long
+              Long ↑
             </button>
             <button
               type="button"
               onClick={() => setSide("short")}
-              className={`flex-1 py-2 rounded-md text-sm font-medium transition-colors border ${
+              className={`py-2.5 rounded-xl text-sm font-semibold transition-all border ${
                 side === "short"
-                  ? "bg-[#ef4444] border-[#ef4444] text-white"
-                  : "bg-card border-border text-muted-foreground hover:text-foreground"
+                  ? "bg-red-500/15 border-red-500/40 text-red-400"
+                  : "bg-white/[0.02] border-white/[0.06] text-white/30 hover:text-white/50"
               }`}
             >
-              Short
+              Short ↓
             </button>
           </div>
         </div>
 
-        {/* Position size */}
-        <div className="space-y-1">
-          <label className="text-sm text-muted-foreground">Position Size (USDT)</label>
-          <Input
-            type="number"
-            placeholder="e.g. 8000"
-            value={position}
-            onChange={(e) => setPosition(e.target.value)}
-            className="bg-card border-border"
-            required
-            min={1}
-          />
-        </div>
-
-        {/* Hold duration */}
-        <div className="space-y-1">
-          <label className="text-sm text-muted-foreground">Hold Duration (hours)</label>
-          <Input
-            type="number"
-            placeholder="e.g. 240"
-            value={hours}
-            onChange={(e) => setHours(e.target.value)}
-            className="bg-card border-border"
-            required
-            min={1}
-          />
+        {/* Position + Hours — side by side */}
+        <div className="grid grid-cols-2 gap-3">
+          <div className="space-y-1.5">
+            <label className="text-[11px] uppercase tracking-widest text-white/30 font-medium">
+              Position (USDT)
+            </label>
+            <Input
+              type="number"
+              placeholder="8000"
+              value={position}
+              onChange={(e) => setPosition(e.target.value)}
+              className="bg-white/[0.03] border-white/[0.08] text-white/80 placeholder:text-white/20 hover:border-white/20 transition-colors"
+              required
+              min={1}
+            />
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-[11px] uppercase tracking-widest text-white/30 font-medium">
+              Hold Duration (hrs)
+            </label>
+            <Input
+              type="number"
+              placeholder="240"
+              value={hours}
+              onChange={(e) => setHours(e.target.value)}
+              className="bg-white/[0.03] border-white/[0.08] text-white/80 placeholder:text-white/20 hover:border-white/20 transition-colors"
+              required
+              min={1}
+            />
+          </div>
         </div>
 
         {/* Submit */}
-        <Button
+        <button
           type="submit"
           disabled={loading}
-          className="w-full bg-primary hover:bg-primary/90 text-white font-semibold"
+          className="w-full py-3 rounded-xl text-sm font-semibold transition-all relative overflow-hidden group disabled:opacity-50"
+          style={{
+            background: "linear-gradient(135deg, #7c3aed, #06b6d4)",
+          }}
         >
-          {loading ? "Analyzing..." : "Find Best Exchange →"}
-        </Button>
+          <span className="relative z-10 text-white">
+            {loading ? "Analyzing markets..." : "Find Best Exchange →"}
+          </span>
+          <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+        </button>
 
-        {error && (
-          <p className="text-sm text-destructive text-center">{error}</p>
-        )}
+        {error && <p className="text-xs text-red-400 text-center">{error}</p>}
       </form>
 
-      {/* Results */}
       {result && <ExchangeCards result={result} />}
     </div>
   );
