@@ -54,3 +54,19 @@ export interface RecommendResponse {
   funding_costs: FundingCost[];
   anomalies: ExchangeAnomaly[];
 }
+
+export interface FundingRateItem {
+  exchange: Exchange;
+  current_rate: number;
+  avg_rate_30d: number;
+  projected_cost_pct: number;
+  net_pnl_pct: number;
+  paying: boolean;
+}
+
+export interface FundingRatesResponse {
+  pair: string;
+  side: string;
+  hold_hours: number;
+  results: FundingRateItem[];
+}

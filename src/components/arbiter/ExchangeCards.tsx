@@ -15,7 +15,7 @@ const EXCHANGE_LABELS: Record<string, string> = {
 
 const EXCHANGE_COLORS: Record<string, string> = {
   binance: "#F0B90B",
-  bybit: "#F7A600",
+  bybit: "#00C4FF",
   mexc: "#2354E6",
 };
 

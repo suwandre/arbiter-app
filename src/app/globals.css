@@ -24,7 +24,6 @@
   --color-destructive: hsl(var(--destructive));
 }
 
-
 @layer base {
   html {
     font-size: 16px;
@@ -36,7 +35,7 @@
     font-size: 1rem;
     line-height: 1.6;
   }
-  
+
   :root {
     --background: 222 47% 6%;
     --foreground: 210 40% 98%;
@@ -59,5 +58,18 @@
     --input: 217 33% 17%;
     --ring: 258 90% 66%;
     --radius: 0.5rem;
+  }
+
+  @keyframes strip-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-strip-scroll {
+    animation: strip-scroll 40s linear infinite;
   }
 }
