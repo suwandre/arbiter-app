@@ -55,7 +55,7 @@ export function ArbiterInputForm() {
 
   return (
     <div className="w-full max-w-2xl mx-auto space-y-6">
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" suppressHydrationWarning>
         {/* Pair */}
         <div className="space-y-1.5">
           <label className="text-[11px] uppercase tracking-widest text-white/30 font-medium">
