@@ -55,7 +55,11 @@ export function ArbiterInputForm() {
 
   return (
     <div className="w-full max-w-2xl mx-auto space-y-6">
-      <form onSubmit={handleSubmit} className="space-y-4" suppressHydrationWarning>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4"
+        suppressHydrationWarning
+      >
         {/* Pair */}
         <div className="space-y-1.5">
           <label className="text-[11px] uppercase tracking-widest text-white/30 font-medium">
@@ -146,13 +150,39 @@ export function ArbiterInputForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 rounded-xl text-sm font-semibold transition-all relative overflow-hidden group disabled:opacity-50"
+          className="w-full py-3 rounded-xl text-sm font-semibold transition-all relative overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed"
           style={{
             background: "linear-gradient(135deg, #7c3aed, #06b6d4)",
           }}
         >
-          <span className="relative z-10 text-white">
-            {loading ? "Analyzing markets..." : "Find Best Exchange →"}
+          <span className="relative z-10 text-white flex items-center justify-center gap-2">
+            {loading ? (
+              <>
+                <svg
+                  className="animate-spin h-4 w-4 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8z"
+                  />
+                </svg>
+                Analyzing markets...
+              </>
+            ) : (
+              "Find Best Exchange →"
+            )}
           </span>
           <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
         </button>
@@ -160,7 +190,11 @@ export function ArbiterInputForm() {
         {error && <p className="text-xs text-red-400 text-center">{error}</p>}
       </form>
 
-      {result && <ExchangeCards result={result} />}
+      {result && (
+        <div className="mt-8 pt-8 border-t border-white/[0.06]">
+          <ExchangeCards result={result} />
+        </div>
+      )}
     </div>
   );
 }

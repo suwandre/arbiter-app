@@ -28,10 +28,13 @@
 @layer base {
   html {
     font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     font-size: 1rem;
+    line-height: 1.6;
   }
   
   :root {

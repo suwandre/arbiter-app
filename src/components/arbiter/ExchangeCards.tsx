@@ -97,7 +97,7 @@ export function ExchangeCards({ result }: Props) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: i * 0.1 }}
-            className={`relative rounded-2xl border p-5 space-y-4 overflow-hidden ${
+            className={`relative rounded-2xl border p-6 space-y-4 overflow-hidden ${
               isTop
                 ? "border-violet-500/30 bg-white/[0.04]"
                 : "border-white/[0.06] bg-white/[0.02]"
@@ -145,7 +145,7 @@ export function ExchangeCards({ result }: Props) {
             <ScoreBar score={rank.composite_score} delay={i * 0.1 + 0.2} />
 
             {/* Stats grid */}
-            <div className="grid grid-cols-3 gap-x-4 gap-y-3">
+            <div className="grid grid-cols-3 gap-x-6 gap-y-4">
               <Stat
                 label="Funding Rate"
                 value={`${(rank.funding_rate * 100).toFixed(5)}%`}
@@ -189,7 +189,7 @@ export function ExchangeCards({ result }: Props) {
                   <p key={idx} className="text-xs text-red-300/70 capitalize">
                     {s.type.replace(/_/g, " ")}
                     <span className="ml-2 text-red-400 font-semibold">
-                      {s.severity}
+                      — {s.severity}
                     </span>
                   </p>
                 ))}
