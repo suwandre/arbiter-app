@@ -76,3 +76,20 @@ export interface FundingRatesResponse {
   hold_hours: number;
   results: FundingRateItem[];
 }
+
+export interface FundingArbPair {
+  long_exchange: string;
+  short_exchange: string;
+  long_rate: number;
+  short_rate: number;
+  differential: number;
+  diff_pct: number;
+  annualized: number;
+}
+
+export interface FundingArbResponse {
+  pair: string;
+  note: string;
+  count: number;
+  opportunities: FundingArbPair[];
+}

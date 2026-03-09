@@ -1,5 +1,6 @@
 import { ArbiterInputForm } from "@/components/arbiter/ArbiterInputForm";
 import { FundingStrip } from "@/components/arbiter/FundingStrip";
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -8,7 +9,8 @@ export default function Home() {
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 80% 40% at 50% -10%, rgba(124,58,237,0.12), transparent)",
+          background:
+            "radial-gradient(ellipse 80% 40% at 50% -10%, rgba(124,58,237,0.12), transparent)",
         }}
       />
 
@@ -32,6 +34,15 @@ export default function Home() {
           <p className="text-sm text-white/30 tracking-widest uppercase">
             Perpetual Futures Intelligence
           </p>
+
+          <div className="flex items-center justify-center gap-4 pt-2">
+            <Link
+              href="/arb"
+              className="text-xs text-white/30 hover:text-violet-400 transition-colors"
+            >
+              Funding Arb →
+            </Link>
+          </div>
         </div>
 
         <ArbiterInputForm />
